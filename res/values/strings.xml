@@ -2,7 +2,10 @@
 <resources>
 
     <string name="app_name">android-training</string>
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    
+    <!-- ASyncTask -->
+    <string name="asynctask">ASyncTask</string>
+    <string name="button_async_demo">ASyncTask demo</string>
 
 </resources>

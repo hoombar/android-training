@@ -3,5 +3,5 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="net.rdyonline.android_training.MainActivity"
+    tools:context="net.rdyonline.android_training.landing.MainActivity"
     tools:ignore="MergeRootFrame" />
