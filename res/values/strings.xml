@@ -7,5 +7,8 @@
     <!-- ASyncTask -->
     <string name="asynctask">ASyncTask</string>
     <string name="button_async_demo">ASyncTask demo</string>
+    <string name="button_unsafe_async_task">Unsafe Task</string>
+    <string name="button_safe_async_task">Safe task</string>
+    <string name="button_progress_async_task">Progress ASync Task</string>
 
 </resources>
