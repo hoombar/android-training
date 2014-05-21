@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -13,10 +14,14 @@ import android.widget.Toast;
 
 public class ASyncTaskActivity extends Activity {
 
+	private static final String TAG = ASyncTaskActivity.class.getSimpleName();
+	
 	private ProgressBar mProgress;
 	private Button mUnsafeTask;
 	private Button mSafeTask;
 	private Button mProgressTask;
+	private Button mSerialTask;
+	private Button mParallelTask;
 	
 	private Context mContext;
 	
@@ -43,6 +48,8 @@ public class ASyncTaskActivity extends Activity {
 		mUnsafeTask = (Button) findViewById(R.id.button_unsafe_async_task);
 		mSafeTask = (Button) findViewById(R.id.button_safe_async_task);
 		mProgressTask = (Button) findViewById(R.id.button_progress_async_task);
+		mSerialTask = (Button) findViewById(R.id.button_async_task_serial);
+		mParallelTask = (Button) findViewById(R.id.button_async_task_parallel);
 	}
 	
 	private void setListeners() {
@@ -60,6 +67,12 @@ public class ASyncTaskActivity extends Activity {
 				case R.id.button_progress_async_task:
 					launchProgressTask();
 					break;
+				case R.id.button_async_task_serial:
+					launchSerial();
+					break;
+				case R.id.button_async_task_parallel:
+					launchParallel();
+					break;
 				}
 			}
 		};
@@ -67,6 +80,8 @@ public class ASyncTaskActivity extends Activity {
 		mUnsafeTask.setOnClickListener(listener);
 		mSafeTask.setOnClickListener(listener);
 		mProgressTask.setOnClickListener(listener);
+		mSerialTask.setOnClickListener(listener);
+		mParallelTask.setOnClickListener(listener);
 	}
 	
 	private void launchSafeTask() {
@@ -140,5 +155,49 @@ public class ASyncTaskActivity extends Activity {
 			}
 			
 		}.execute();
+	}
+	
+	/***
+	 * After HoneyComb uses serial by default
+	 * After GB, before HoneyComb uses parallel by default
+	 */
+	private void launchParallel() {
+		for (int i = 0; i < 10; i++) {
+			new AsyncTask<Void, Void, Void>() {
+
+				@Override
+				protected Void doInBackground(Void... params) {
+					for (int i = 0; i < 1000; i++) {
+						Log.i(TAG, Integer.toString(i));
+					}
+					return null;
+				}
+				
+			}.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+		}
+		
+		Toast.makeText(this, "done", Toast.LENGTH_SHORT).show();
+	}
+	
+	/***
+	 * After HoneyComb uses serial by default
+	 * After GB, before HoneyComb uses parallel by default
+	 */
+	private void launchSerial() {
+		for (int i = 0; i < 10; i++) {
+			new AsyncTask<Void, Void, Void>() {
+
+				@Override
+				protected Void doInBackground(Void... params) {
+					for (int i = 0; i < 1000; i++) {
+						Log.i(TAG, Integer.toString(i));
+					}
+					return null;
+				}
+				
+			}.execute();
+		}
+		
+		Toast.makeText(this, "done", Toast.LENGTH_SHORT).show();
 	}
 }

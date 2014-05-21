@@ -10,5 +10,7 @@
     <string name="button_unsafe_async_task">Unsafe Task</string>
     <string name="button_safe_async_task">Safe task</string>
     <string name="button_progress_async_task">Progress ASync Task</string>
+    <string name="button_serial_async_task">Serial ASync Tasks</string>
+    <string name="button_parallel_async_task">Parallel ASync Tasks</string>
 
 </resources>

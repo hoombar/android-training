@@ -35,5 +35,19 @@
 	    android:layout_height="wrap_content"
 	    android:text="@string/button_progress_async_task"
 	    />
+	
+	<Button 
+	    android:id="@+id/button_async_task_serial"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:text="@string/button_serial_async_task"
+	    />
     
+	<Button 
+	    android:id="@+id/button_async_task_parallel"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:text="@string/button_parallel_async_task"
+	    />
+	
 </LinearLayout>
