@@ -4,6 +4,12 @@
     <string name="app_name">android-training</string>
     <string name="action_settings">Settings</string>
     
+    <!-- GreenDao -->
+    <string name="greendao">GreenDao</string>
+    <string name="button_greendao_demo">GreenDao demo</string>
+    <string name="button_add_data">Add data</string>
+    <string name="button_clear_data">Clear data</string>
+    
     <!-- ASyncTask -->
     <string name="asynctask">ASyncTask</string>
     <string name="button_async_demo">ASyncTask demo</string>

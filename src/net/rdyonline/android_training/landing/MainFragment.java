@@ -2,6 +2,8 @@ package net.rdyonline.android_training.landing;
 
 import net.rdyonline.android_training.R;
 import net.rdyonline.android_training.asynctasks.ASyncTaskActivity;
+import net.rdyonline.android_training.greendao.GreenDaoActivity;
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,11 +18,14 @@ public class MainFragment extends Fragment {
 	private View mRootView;
 
 	private Button mAsyncDemo;
+	private Button mGreenDaoDemo;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+
 		mRootView = inflater.inflate(R.layout.fragment_main, container, false);
+
 		return mRootView;
 	}
 
@@ -34,6 +39,8 @@ public class MainFragment extends Fragment {
 
 	private void bindViews() {
 		mAsyncDemo = (Button) mRootView.findViewById(R.id.button_async_demo);
+		mGreenDaoDemo = (Button) mRootView
+				.findViewById(R.id.button_greendao_demo);
 	}
 
 	/**
@@ -48,12 +55,16 @@ public class MainFragment extends Fragment {
 				case R.id.button_async_demo:
 					launchActivity(ASyncTaskActivity.class);
 					break;
+				case R.id.button_greendao_demo:
+					launchActivity(GreenDaoActivity.class);
+					break;
 				}
 			}
 
 		};
 
 		mAsyncDemo.setOnClickListener(listener);
+		mGreenDaoDemo.setOnClickListener(listener);
 	}
 
 	/**

@@ -12,7 +12,10 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme" 
+        android:name="net.rdyonline.android_training.AndroidTraining"
+        >
+        
         <activity
             android:name="net.rdyonline.android_training.landing.MainActivity"
             android:label="@string/app_name" >
@@ -25,6 +28,10 @@
         <activity 
             android:name="net.rdyonline.android_training.asynctasks.ASyncTaskActivity"
             android:label="@string/asynctask"
+            />
+        <activity 
+            android:name="net.rdyonline.android_training.greendao.GreenDaoActivity"
+            android:label="@string/greendao"
             />
     </application>
 

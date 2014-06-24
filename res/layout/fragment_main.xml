@@ -15,4 +15,12 @@
         android:text="@string/button_async_demo"
         />
     
+	<Button
+        android:id="@+id/button_greendao_demo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/button_async_demo"
+        android:text="@string/button_greendao_demo"
+        />
+    
 </RelativeLayout>
