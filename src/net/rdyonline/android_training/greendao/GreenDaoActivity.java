@@ -1,6 +1,8 @@
 package net.rdyonline.android_training.greendao;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 import net.rdyonline.android_training.R;
 import net.rdyonline.android_training.greendao.data.ConferencePopulator;
@@ -33,6 +35,8 @@ public class GreenDaoActivity extends Activity {
 
 		bindViews();
 		setListeners();
+		
+		updateOutput();
 	}
 
 	private void bindViews() {
@@ -95,23 +99,33 @@ public class GreenDaoActivity extends Activity {
 
 		StringBuilder builder = new StringBuilder();
 
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.ENGLISH);
+		
 		// TODO(benp) good chance for to demonstrate custom query
 		for (Conference c : conferences) {
 			builder.append(c.getName() + "\n");
+			
 			for (Room r : c.getRoomList()) {
 				builder.append("\t" + r.getName() + "\n");
+				
 				for (Timeslot t : r.getTimeslotList()) {
-					builder.append("\t\t" + t.getStartTime().toString() + " - "
-							+ t.getEndTime().toString());
+					builder.append("\t\t");
+					builder.append(sdf.format(t.getStartTime()));
+					builder.append(" - ");
+					builder.append(sdf.format(t.getEndTime()));
 					
 					for (Speaker s : speakers) {
 						for (Timeslot st : s.getTimeslotList()) {
 							if (st.getId() == t.getId()) {
-								builder.append(" ("+s.getFname()+" "+s.getLname()+")");
+								builder.append(" (");
+								builder.append(s.getFname()+" ");
+								builder.append(s.getLname());
+								builder.append(")");
 								break;
 							}
 						}
 					}
+					
 					builder.append("\n");
 				}
 			}
