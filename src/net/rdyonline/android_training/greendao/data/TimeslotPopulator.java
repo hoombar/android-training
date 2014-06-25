@@ -11,6 +11,17 @@ import net.rdyonline.android_training.orm.dao.TimeslotDao;
 
 public class TimeslotPopulator extends Populator {
 
+	private int mIterations = 50;
+
+	public void populateData(int iterations) {
+		int original = mIterations;
+		mIterations = iterations;
+		
+		populateData();
+		
+		mIterations = original;
+	}
+	
 	@Override
 	public void populateData() {
 		List<Speaker> speakers = mSession.getSpeakerDao().loadAll();
@@ -31,7 +42,7 @@ public class TimeslotPopulator extends Populator {
 					speakers.get(i % speakers.size()));
 			
 			i++;
-		} while (i < 50);
+		} while (i < mIterations);
 	}
 
 	private void addTimeslot(Date startTime, Date endTime, Room room,

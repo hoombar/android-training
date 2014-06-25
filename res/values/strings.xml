@@ -9,6 +9,10 @@
     <string name="button_greendao_demo">GreenDao demo</string>
     <string name="button_add_data">Add data</string>
     <string name="button_clear_data">Clear data</string>
+    <string name="button_transaction">Transaction</string>
+    <string name="button_no_transaction">No transaction</string>
+    <string name="button_caching">Caching demo</string>
+    <string name="button_caching_problem">Caching problem</string>
     
     <!-- ASyncTask -->
     <string name="asynctask">ASyncTask</string>

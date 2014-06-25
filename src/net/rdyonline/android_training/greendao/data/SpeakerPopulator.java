@@ -5,7 +5,7 @@ import net.rdyonline.android_training.orm.dao.SpeakerDao;
 
 public class SpeakerPopulator extends Populator {
 
-	static class Specialism {
+	public static class Specialism {
 		public static int dagger = 1;
 		public static int rope = 2;
 		public static int leadPiping = 3;

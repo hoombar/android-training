@@ -14,19 +14,34 @@ import net.rdyonline.android_training.orm.Conference;
 import net.rdyonline.android_training.orm.Room;
 import net.rdyonline.android_training.orm.Speaker;
 import net.rdyonline.android_training.orm.Timeslot;
+import net.rdyonline.android_training.orm.dao.ConferenceDao;
 import net.rdyonline.android_training.orm.dao.DaoSession;
+import net.rdyonline.android_training.orm.dao.RoomDao;
+import net.rdyonline.android_training.orm.dao.SpeakerDao;
+import net.rdyonline.android_training.orm.dao.TimeslotDao;
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class GreenDaoActivity extends Activity {
 
+	private static final String TAG = GreenDaoActivity.class.getSimpleName();
+
 	private Button mClear;
 	private Button mPopulate;
+	private Button mRunInTx;
+	private Button mRunNoTx;
+	private Button mCaching;
+	private Button mCachingProblem;
 	private TextView mOutput;
+
+	// how many times to iterate time slots when demonstrating transaction speed
+	private int mTxIterations = 1000;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,13 +50,19 @@ public class GreenDaoActivity extends Activity {
 
 		bindViews();
 		setListeners();
-		
+
+		// the transaction data is too big to show, so it gets cleared on start
+		clearData();
 		updateOutput();
 	}
 
 	private void bindViews() {
 		mPopulate = (Button) findViewById(R.id.button_add_data);
 		mClear = (Button) findViewById(R.id.button_clear_data);
+		mRunInTx = (Button) findViewById(R.id.button_run_in_tx);
+		mRunNoTx = (Button) findViewById(R.id.button_run_without_tx);
+		mCaching = (Button) findViewById(R.id.button_caching);
+		mCachingProblem = (Button) findViewById(R.id.button_caching_problem);
 		mOutput = (TextView) findViewById(R.id.txt_dao_output);
 	}
 
@@ -57,12 +78,142 @@ public class GreenDaoActivity extends Activity {
 				case R.id.button_clear_data:
 					clearData();
 					break;
+				case R.id.button_run_in_tx:
+					runInTx();
+					break;
+				case R.id.button_run_without_tx:
+					runWithoutTx();
+					break;
+				case R.id.button_caching:
+					cachingDemo();
+					break;
+				case R.id.button_caching_problem:
+					cachingProblemExample();
+					break;
 				}
 			}
 		};
 
 		mPopulate.setOnClickListener(listener);
 		mClear.setOnClickListener(listener);
+		mRunInTx.setOnClickListener(listener);
+		mRunNoTx.setOnClickListener(listener);
+		mCaching.setOnClickListener(listener);
+		mCachingProblem.setOnClickListener(listener);
+	}
+
+	/**
+	 * Illustrate how GreenDao handles caching
+	 */
+	private void cachingDemo() {
+		// need some data to work with
+		populateData();
+
+		DaoSession session = DbHelper.getInstance().getDaoSession();
+		SpeakerDao speakerDao = session.getSpeakerDao();
+		TimeslotDao timeDao = session.getTimeslotDao();
+
+		// use a speaker and a timeslot for the demo
+		Speaker speaker = speakerDao.loadAll().get(0);
+		Timeslot timeslot = speaker.getTimeslotList().get(0);
+
+		Log.d(TAG,
+				"Timeslot value before update is: "
+						+ Long.toString(timeslot.getRoom()));
+		
+		Timeslot directTimeslot = timeDao.load(timeslot.getId());
+		directTimeslot.setRoom(-1L);
+		timeDao.update(directTimeslot);
+
+		// note that timeslot hasn't been explicitly updated!
+		
+		Log.d(TAG,
+				"Direct Timeslot for speaker is: "
+						+ Long.toString(directTimeslot.getRoom()));
+		Log.d(TAG,
+				"GreenDao returns the same Java object, so timeslot is also: "
+						+ Long.toString(timeslot.getRoom()));
+
+		Toast.makeText(this, "Check logcat", Toast.LENGTH_SHORT).show();
+		
+		clearData();
+	}
+	
+	/***
+	 * As GreenDao works with cached versions of objects, inserting a new
+	 * record has the potential to make any other objects that use a relationship
+	 * to access child objects stale
+	 */
+	private void cachingProblemExample() {
+		// need data to work with
+		populateData();
+		
+		DaoSession session = DbHelper.getInstance().getDaoSession();
+		
+		ConferenceDao conferenceDao = session.getConferenceDao();
+		RoomDao roomDao = session.getRoomDao();
+		
+		Conference conference = conferenceDao.loadAll().get(0);
+		
+		Room room = new Room();
+		room.setCapacity(100L);
+		room.setConference(conference.getId());
+		room.setName("MissingFromConf");
+		
+		// added to database
+		roomDao.insert(room);
+		
+		List<Room> dbRooms = roomDao.loadAll();
+		int roomCount = 0;
+		for (int i = 0; i < dbRooms.size(); i++) {
+			if (dbRooms.get(i).getConference() == conference.getId()) {
+				roomCount++;
+			}
+		}
+		
+		Log.d(TAG, "Rooms in database: " + roomCount);
+		Log.d(TAG, "Rooms conference has: " + conference.getRoomList().size());
+		Toast.makeText(this, "Check logcat", Toast.LENGTH_SHORT).show();
+		
+		clearData();
+	}
+
+	/***
+	 * 1000 rows added, but by running them in a transaction, notice the speed
+	 * difference
+	 */
+	private void runInTx() {
+		// make sure dependencies are met
+		populateData();
+
+		final TimeslotPopulator tp = new TimeslotPopulator();
+
+		DbHelper.getInstance().getDaoSession().runInTx(new Runnable() {
+
+			@Override
+			public void run() {
+				tp.populateData(mTxIterations);
+			}
+		});
+
+		Toast.makeText(this, "Done,  pull database to see data",
+				Toast.LENGTH_LONG).show();
+	}
+
+	/***
+	 * 1000 rows added one by one
+	 */
+	private void runWithoutTx() {
+		// make sure dependencies are met
+		populateData();
+
+		final TimeslotPopulator tp = new TimeslotPopulator();
+
+		tp.deleteData();
+		tp.populateData(mTxIterations);
+
+		Toast.makeText(this, "Done,  pull database to see data",
+				Toast.LENGTH_LONG).show();
 	}
 
 	/***
@@ -92,6 +243,9 @@ public class GreenDaoActivity extends Activity {
 		updateOutput();
 	}
 
+	/***
+	 * Used to display the current state of the database
+	 */
 	private void updateOutput() {
 		DaoSession session = DbHelper.getInstance().getDaoSession();
 		List<Conference> conferences = session.getConferenceDao().loadAll();
@@ -100,32 +254,32 @@ public class GreenDaoActivity extends Activity {
 		StringBuilder builder = new StringBuilder();
 
 		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.ENGLISH);
-		
+
 		// TODO(benp) good chance for to demonstrate custom query
 		for (Conference c : conferences) {
 			builder.append(c.getName() + "\n");
-			
+
 			for (Room r : c.getRoomList()) {
 				builder.append("\t" + r.getName() + "\n");
-				
+
 				for (Timeslot t : r.getTimeslotList()) {
 					builder.append("\t\t");
 					builder.append(sdf.format(t.getStartTime()));
 					builder.append(" - ");
 					builder.append(sdf.format(t.getEndTime()));
-					
+
 					for (Speaker s : speakers) {
 						for (Timeslot st : s.getTimeslotList()) {
 							if (st.getId() == t.getId()) {
 								builder.append(" (");
-								builder.append(s.getFname()+" ");
+								builder.append(s.getFname() + " ");
 								builder.append(s.getLname());
 								builder.append(")");
 								break;
 							}
 						}
 					}
-					
+
 					builder.append("\n");
 				}
 			}

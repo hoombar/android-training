@@ -6,19 +6,71 @@
     android:padding="@dimen/activity_vertical_margin"
     >
     
-	<Button 
-	    android:id="@+id/button_add_data"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:text="@string/button_add_data"
-	    />
+    <LinearLayout 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        
+		<Button 
+		    android:id="@+id/button_add_data"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/button_add_data"
+		    />
+		
+		<Button 
+		    android:id="@+id/button_clear_data"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/button_clear_data"
+		    />
+	        
+    </LinearLayout>
+    
+    <LinearLayout 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+		
+		<Button
+		    android:id="@+id/button_run_in_tx"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/button_transaction"
+		    />
+		
+		<Button
+		    android:id="@+id/button_run_without_tx"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/button_no_transaction"
+		    />
+		
+	</LinearLayout>
 	
-	<Button 
-	    android:id="@+id/button_clear_data"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:text="@string/button_clear_data"
-	    />
+    <LinearLayout 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+		
+		<Button
+		    android:id="@+id/button_caching"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/button_caching"
+		    />
+		
+		<Button
+		    android:id="@+id/button_caching_problem"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/button_caching_problem"
+		    />
+		
+	</LinearLayout>
 	
 	<ScrollView 
 	    android:layout_width="match_parent"
