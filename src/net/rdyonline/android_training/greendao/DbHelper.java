@@ -5,8 +5,14 @@ import net.rdyonline.android_training.orm.dao.DaoMaster;
 import net.rdyonline.android_training.orm.dao.DaoMaster.DevOpenHelper;
 import net.rdyonline.android_training.orm.dao.DaoSession;
 
-
+/***
+ * The DaoSession is always returned from this class
+ * We use this to get the individual Dao session objects
+ * 
+ * @author rdy
+ */
 public class DbHelper {
+	
 	private static DbHelper instance;
 	private DaoSession daoSession;
 	private DaoMaster daoMaster;
@@ -24,6 +30,8 @@ public class DbHelper {
 		DevOpenHelper devOpenHelper = new DevOpenHelper(
 				AndroidTraining.getAppContext(), DB_NAME, null);
 
+		// note that the first time this is called, any update/create
+		// operations will be performed
 		daoMaster = new DaoMaster(devOpenHelper.getWritableDatabase());
 		daoSession = daoMaster.newSession();
 	}

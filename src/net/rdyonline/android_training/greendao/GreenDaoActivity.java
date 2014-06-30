@@ -28,6 +28,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/***
+ * Most of the interesting stuff for the training session is in here
+ * 
+ * @author rdy
+ */
 public class GreenDaoActivity extends Activity {
 
 	private static final String TAG = GreenDaoActivity.class.getSimpleName();
@@ -103,10 +108,13 @@ public class GreenDaoActivity extends Activity {
 	}
 
 	/**
-	 * Illustrate how GreenDao handles caching
+	 * Illustrate how GreenDao handles caching The same object is returned from
+	 * a new query, so if you update an object returned from a previous query,
+	 * you will also be updating the newer object that was returned from a more
+	 * recent query
 	 */
 	private void cachingDemo() {
-		// need some data to work with
+		// start with a clean slate
 		populateData();
 
 		DaoSession session = DbHelper.getInstance().getDaoSession();
@@ -120,13 +128,13 @@ public class GreenDaoActivity extends Activity {
 		Log.d(TAG,
 				"Timeslot value before update is: "
 						+ Long.toString(timeslot.getRoom()));
-		
+
 		Timeslot directTimeslot = timeDao.load(timeslot.getId());
 		directTimeslot.setRoom(-1L);
 		timeDao.update(directTimeslot);
 
 		// note that timeslot hasn't been explicitly updated!
-		
+
 		Log.d(TAG,
 				"Direct Timeslot for speaker is: "
 						+ Long.toString(directTimeslot.getRoom()));
@@ -135,34 +143,34 @@ public class GreenDaoActivity extends Activity {
 						+ Long.toString(timeslot.getRoom()));
 
 		Toast.makeText(this, "Check logcat", Toast.LENGTH_SHORT).show();
-		
+
 		clearData();
 	}
-	
+
 	/***
-	 * As GreenDao works with cached versions of objects, inserting a new
-	 * record has the potential to make any other objects that use a relationship
-	 * to access child objects stale
+	 * As GreenDao works with cached versions of objects, inserting a new record
+	 * has the potential to make any other objects that use a relationship to
+	 * access child objects stale
 	 */
 	private void cachingProblemExample() {
 		// need data to work with
 		populateData();
-		
+
 		DaoSession session = DbHelper.getInstance().getDaoSession();
-		
 		ConferenceDao conferenceDao = session.getConferenceDao();
 		RoomDao roomDao = session.getRoomDao();
-		
 		Conference conference = conferenceDao.loadAll().get(0);
-		
+
 		Room room = new Room();
 		room.setCapacity(100L);
 		room.setConference(conference.getId());
 		room.setName("MissingFromConf");
-		
+
 		// added to database
 		roomDao.insert(room);
-		
+
+		// loadAll will hit the database again to get the most recent
+		// list of all of the rooms that are available again
 		List<Room> dbRooms = roomDao.loadAll();
 		int roomCount = 0;
 		for (int i = 0; i < dbRooms.size(); i++) {
@@ -170,17 +178,20 @@ public class GreenDaoActivity extends Activity {
 				roomCount++;
 			}
 		}
-		
+
 		Log.d(TAG, "Rooms in database: " + roomCount);
 		Log.d(TAG, "Rooms conference has: " + conference.getRoomList().size());
 		Toast.makeText(this, "Check logcat", Toast.LENGTH_SHORT).show();
-		
+
 		clearData();
 	}
 
 	/***
 	 * 1000 rows added, but by running them in a transaction, notice the speed
 	 * difference
+	 * 
+	 * A single transaction will be opened for all of the inserted rather than:
+	 * open transaction insert close transaction open transaction insert ..
 	 */
 	private void runInTx() {
 		// make sure dependencies are met
@@ -202,6 +213,8 @@ public class GreenDaoActivity extends Activity {
 
 	/***
 	 * 1000 rows added one by one
+	 * 
+	 * Note that a new transaction will be created for each record inserted
 	 */
 	private void runWithoutTx() {
 		// make sure dependencies are met
@@ -233,6 +246,9 @@ public class GreenDaoActivity extends Activity {
 		p.populateData();
 	}
 
+	/***
+	 * Clean all data that has been inserted
+	 */
 	private void clearData() {
 		DaoSession session = DbHelper.getInstance().getDaoSession();
 		session.getConferenceDao().deleteAll();
@@ -245,6 +261,9 @@ public class GreenDaoActivity extends Activity {
 
 	/***
 	 * Used to display the current state of the database
+	 * 
+	 * Note that this won't be used for the transaction demonstrations
+	 * as the data would be too large
 	 */
 	private void updateOutput() {
 		DaoSession session = DbHelper.getInstance().getDaoSession();
@@ -255,7 +274,6 @@ public class GreenDaoActivity extends Activity {
 
 		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.ENGLISH);
 
-		// TODO(benp) good chance for to demonstrate custom query
 		for (Conference c : conferences) {
 			builder.append(c.getName() + "\n");
 
