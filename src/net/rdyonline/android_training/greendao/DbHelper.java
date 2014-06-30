@@ -27,6 +27,8 @@ public class DbHelper {
 	}
 
 	public DbHelper() {
+		// DevOpenHelper is an implementation of OpenHelper
+		// that will simply drop and create the tables
 		DevOpenHelper devOpenHelper = new DevOpenHelper(
 				AndroidTraining.getAppContext(), DB_NAME, null);
 

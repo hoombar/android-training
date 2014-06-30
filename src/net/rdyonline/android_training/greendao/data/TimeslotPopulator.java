@@ -11,6 +11,7 @@ import net.rdyonline.android_training.orm.dao.TimeslotDao;
 
 public class TimeslotPopulator extends Populator {
 
+	// by default, 50 timeslots are added
 	private int mIterations = 50;
 
 	public void populateData(int iterations) {
@@ -31,6 +32,7 @@ public class TimeslotPopulator extends Populator {
 		Calendar endTime = Calendar.getInstance();
 		endTime.add(Calendar.HOUR_OF_DAY, 1);
 
+		// a little magic to insert some realistic data
 		int i = 1;
 		do {
 			if (i % rooms.size() == 0) {
