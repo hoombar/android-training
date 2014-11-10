@@ -25,6 +25,11 @@ public class WrappedAlarmManager {
 				.getSystemService(Context.ALARM_SERVICE);
 	}
 
+	/**
+	 * One shot alarm
+	 * 
+	 * @param context
+	 */
 	public void scheduleSingleAlarm(Context context) {
 		Intent intent = new Intent(context, NotificationReceiver.class);
 		Bundle extras = new Bundle();
@@ -39,6 +44,11 @@ public class WrappedAlarmManager {
 		setSingleExactAlarm(futureDate.getTime().getTime(), pendingUpdateIntent);
 	}
 
+	/***
+	 * Raise an alarm every {@linkplain INTERVAL_SEVEN_SECONDS}
+	 * 
+	 * @param context
+	 */
 	public void scheduleRepeatingAlarm(Context context) {
 		Intent intent = new Intent(context, NotificationReceiver.class);
 		Bundle extras = new Bundle();
@@ -58,9 +68,14 @@ public class WrappedAlarmManager {
 		}
 	}
 
+	/***
+	 * Kill the repeating alarms to make sure the app doesn't get carried away
+	 * with altering them!
+	 * 
+	 * @param context
+	 */
 	public void removeRepeatingAlarm(Context context) {
-		Intent intent = new Intent(context,
-				NotificationReceiver.class);
+		Intent intent = new Intent(context, NotificationReceiver.class);
 		PendingIntent pendingUpdateIntent = PendingIntent.getBroadcast(context,
 				REPEAT_ALARM_ID, intent, 0);
 
