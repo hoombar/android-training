@@ -1,6 +1,7 @@
 package net.rdyonline.android_training.landing;
 
 import net.rdyonline.android_training.R;
+import net.rdyonline.android_training.alarms.AlarmActivity;
 import net.rdyonline.android_training.asynctasks.ASyncTaskActivity;
 import net.rdyonline.android_training.greendao.GreenDaoActivity;
 import android.app.Activity;
@@ -19,6 +20,7 @@ public class MainFragment extends Fragment {
 
 	private Button mAsyncDemo;
 	private Button mGreenDaoDemo;
+	private Button mAlarmDemo;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,10 +41,10 @@ public class MainFragment extends Fragment {
 
 	private void bindViews() {
 		mAsyncDemo = (Button) mRootView.findViewById(R.id.button_async_demo);
-		mGreenDaoDemo = (Button) mRootView
-				.findViewById(R.id.button_greendao_demo);
+		mGreenDaoDemo = (Button) mRootView.findViewById(R.id.button_greendao_demo);
+		mAlarmDemo = (Button) mRootView.findViewById(R.id.button_alarm_demo);
 	}
-
+	
 	/**
 	 * Wire up the training buttons to launch the topic
 	 */
@@ -58,6 +60,9 @@ public class MainFragment extends Fragment {
 				case R.id.button_greendao_demo:
 					launchActivity(GreenDaoActivity.class);
 					break;
+				case R.id.button_alarm_demo:
+					launchActivity(AlarmActivity.class);
+					break;
 				}
 			}
 
@@ -65,6 +70,7 @@ public class MainFragment extends Fragment {
 
 		mAsyncDemo.setOnClickListener(listener);
 		mGreenDaoDemo.setOnClickListener(listener);
+		mAlarmDemo.setOnClickListener(listener);
 	}
 
 	/**

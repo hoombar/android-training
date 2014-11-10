@@ -23,4 +23,9 @@
     <string name="button_serial_async_task">Serial ASync Tasks</string>
     <string name="button_parallel_async_task">Parallel ASync Tasks</string>
 
+    <!-- Alarms -->
+    <string name="alarms">Alarms</string>
+    <string name="button_alarm_demo">Alarm demo</string>
+    <string name="button_single_alarm">One shot</string>
+    <string name="button_repeating_alarm">Repeating</string>
 </resources>
