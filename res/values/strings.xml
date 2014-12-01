@@ -28,4 +28,12 @@
     <string name="button_alarm_demo">Alarm demo</string>
     <string name="button_single_alarm">One shot</string>
     <string name="button_repeating_alarm">Repeating</string>
+    
+    <!-- Palette -->
+    <string name="palette">Palette</string>
+    <string name="button_palette_demo">Palette demo</string>
+    <string name="button_palette_get_swatches">Get swatches</string>
+    <string name="vibrant">Vibrant</string>
+    <string name="muted">Muted</string>
+    
 </resources>

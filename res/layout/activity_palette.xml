@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/activity_vertical_margin" 
+    android:weightSum="2">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:layout_weight="1">
+
+        <View
+            android:id="@+id/centre"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_centerInParent="true" />
+
+        <ImageView
+            android:id="@+id/img_ch1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/centre"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignRight="@id/centre"
+            android:scaleType="centerInside"
+            android:src="@drawable/ch1" />
+
+        <ImageView
+            android:id="@+id/img_ch2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/centre"
+            android:layout_alignLeft="@id/centre"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:scaleType="centerInside"
+            android:src="@drawable/ch2" />
+
+        <Button
+            android:id="@+id/button_find_swatches"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/img_ch1"
+            android:text="@string/button_palette_get_swatches" 
+            
+			android:layout_alignParentLeft="true"
+            android:layout_alignRight="@id/centre"
+            />
+
+        <Button
+            android:id="@+id/button_find_second_swatches"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/img_ch2"
+            android:text="@string/button_palette_get_swatches" 
+            
+            android:layout_alignParentRight="true"
+            android:layout_alignLeft="@id/centre"
+            />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/vibrant" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3" >
+
+        <View
+            android:id="@+id/img_vibrant"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_weight="1" />
+
+        <View
+            android:id="@+id/img_vibrant_dark"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_weight="1" />
+
+        <View
+            android:id="@+id/img_vibrant_light"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/muted" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3" >
+
+        <View
+            android:id="@+id/img_muted"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_weight="1" />
+
+        <View
+            android:id="@+id/img_muted_dark"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_weight="1" />
+
+        <View
+            android:id="@+id/img_muted_light"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+</LinearLayout>

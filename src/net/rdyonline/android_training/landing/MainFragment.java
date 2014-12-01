@@ -4,6 +4,7 @@ import net.rdyonline.android_training.R;
 import net.rdyonline.android_training.alarms.AlarmActivity;
 import net.rdyonline.android_training.asynctasks.ASyncTaskActivity;
 import net.rdyonline.android_training.greendao.GreenDaoActivity;
+import net.rdyonline.android_training.material.palette.PaletteActivity;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
@@ -21,6 +22,7 @@ public class MainFragment extends Fragment {
 	private Button mAsyncDemo;
 	private Button mGreenDaoDemo;
 	private Button mAlarmDemo;
+	private Button mPaletteDemo;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,6 +45,7 @@ public class MainFragment extends Fragment {
 		mAsyncDemo = (Button) mRootView.findViewById(R.id.button_async_demo);
 		mGreenDaoDemo = (Button) mRootView.findViewById(R.id.button_greendao_demo);
 		mAlarmDemo = (Button) mRootView.findViewById(R.id.button_alarm_demo);
+		mPaletteDemo = (Button) mRootView.findViewById(R.id.button_palette_demo);
 	}
 	
 	/**
@@ -63,6 +66,9 @@ public class MainFragment extends Fragment {
 				case R.id.button_alarm_demo:
 					launchActivity(AlarmActivity.class);
 					break;
+				case R.id.button_palette_demo:
+					launchActivity(PaletteActivity.class);
+					break;
 				}
 			}
 
@@ -71,8 +77,9 @@ public class MainFragment extends Fragment {
 		mAsyncDemo.setOnClickListener(listener);
 		mGreenDaoDemo.setOnClickListener(listener);
 		mAlarmDemo.setOnClickListener(listener);
+		mPaletteDemo.setOnClickListener(listener);
 	}
-
+	
 	/**
 	 * Launch a new {@link Activity} to demonstrate usage of training topic
 	 * 
