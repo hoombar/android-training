@@ -4,6 +4,7 @@ import net.rdyonline.android_training.R;
 import net.rdyonline.android_training.alarms.AlarmActivity;
 import net.rdyonline.android_training.asynctasks.ASyncTaskActivity;
 import net.rdyonline.android_training.greendao.GreenDaoActivity;
+import net.rdyonline.android_training.intents.IntentActivity;
 import net.rdyonline.android_training.material.palette.PaletteActivity;
 import net.rdyonline.android_training.stackoverflow.StackOverflowActivity;
 import android.app.Activity;
@@ -24,6 +25,7 @@ public class MainFragment extends Fragment {
 	private Button mGreenDaoDemo;
 	private Button mAlarmDemo;
 	private Button mPaletteDemo;
+	private Button mIntentDemo;
 	private Button mStackOverflowPlayground;
 
 	@Override
@@ -50,6 +52,8 @@ public class MainFragment extends Fragment {
 		mAlarmDemo = (Button) mRootView.findViewById(R.id.button_alarm_demo);
 		mPaletteDemo = (Button) mRootView
 				.findViewById(R.id.button_palette_demo);
+		mIntentDemo = (Button) mRootView
+				.findViewById(R.id.button_intent_demo);
 		mStackOverflowPlayground = (Button) mRootView
 				.findViewById(R.id.button_stackoverflow_playground);
 	}
@@ -75,6 +79,9 @@ public class MainFragment extends Fragment {
 				case R.id.button_palette_demo:
 					launchActivity(PaletteActivity.class);
 					break;
+				case R.id.button_intent_demo:
+					launchActivity(IntentActivity.class);
+					break;
 				case R.id.button_stackoverflow_playground:
 					launchActivity(StackOverflowActivity.class);
 					break;
@@ -87,6 +94,7 @@ public class MainFragment extends Fragment {
 		mGreenDaoDemo.setOnClickListener(listener);
 		mAlarmDemo.setOnClickListener(listener);
 		mPaletteDemo.setOnClickListener(listener);
+		mIntentDemo.setOnClickListener(listener);
 		mStackOverflowPlayground.setOnClickListener(listener);
 	}
 

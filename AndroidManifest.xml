@@ -37,6 +37,13 @@
         <activity
             android:name="net.rdyonline.android_training.material.palette.PaletteActivity"
             android:label="@string/palette" />
+		<activity
+            android:name="net.rdyonline.android_training.intents.IntentActivity"
+            android:label="@string/intents" />
+		<activity
+            android:name="net.rdyonline.android_training.intents.IntentSecondActivity"
+            android:label="@string/intents" />
+        
         
         <activity
             android:name="net.rdyonline.android_training.stackoverflow.StackOverflowActivity"

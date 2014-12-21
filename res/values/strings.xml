@@ -36,6 +36,12 @@
     <string name="vibrant">Vibrant</string>
     <string name="muted">Muted</string>
     
+    <!-- Intents -->
+    <string name="intents">Intents</string>
+    <string name="button_intent_demo">Intent demo</string>
+    <string name="button_intent_bundle">As Bundle</string>
+    <string name="button_intent_direct">Directly</string>
+    
     <!-- Stack Overflow -->
     <string name="stack_overflow">StackOverflow</string>
     <string name="button_stackoverflow">SO Playground</string>

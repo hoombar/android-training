@@ -31,7 +31,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/button_palette_demo" />
-    
+	
+	<Button
+        android:id="@+id/button_intent_demo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_intent_demo" />
+	    
 	<Button
         android:id="@+id/button_stackoverflow_playground"
         android:layout_width="wrap_content"
