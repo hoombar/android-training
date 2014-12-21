@@ -1,4 +1,4 @@
-package stackoverflow;
+package net.rdyonline.android_training.stackoverflow;
 
 import net.rdyonline.android_training.R;
 import android.app.Activity;

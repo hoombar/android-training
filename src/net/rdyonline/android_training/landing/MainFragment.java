@@ -5,7 +5,7 @@ import net.rdyonline.android_training.alarms.AlarmActivity;
 import net.rdyonline.android_training.asynctasks.ASyncTaskActivity;
 import net.rdyonline.android_training.greendao.GreenDaoActivity;
 import net.rdyonline.android_training.material.palette.PaletteActivity;
-import stackoverflow.StackOverflowActivity;
+import net.rdyonline.android_training.stackoverflow.StackOverflowActivity;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
@@ -45,11 +45,15 @@ public class MainFragment extends Fragment {
 
 	private void bindViews() {
 		mAsyncDemo = (Button) mRootView.findViewById(R.id.button_async_demo);
-		mGreenDaoDemo = (Button) mRootView.findViewById(R.id.button_greendao_demo);
+		mGreenDaoDemo = (Button) mRootView
+				.findViewById(R.id.button_greendao_demo);
 		mAlarmDemo = (Button) mRootView.findViewById(R.id.button_alarm_demo);
-		mPaletteDemo = (Button) mRootView.findViewById(R.id.button_palette_demo);
+		mPaletteDemo = (Button) mRootView
+				.findViewById(R.id.button_palette_demo);
+		mStackOverflowPlayground = (Button) mRootView
+				.findViewById(R.id.button_stackoverflow_playground);
 	}
-	
+
 	/**
 	 * Wire up the training buttons to launch the topic
 	 */
@@ -85,7 +89,7 @@ public class MainFragment extends Fragment {
 		mPaletteDemo.setOnClickListener(listener);
 		mStackOverflowPlayground.setOnClickListener(listener);
 	}
-	
+
 	/**
 	 * Launch a new {@link Activity} to demonstrate usage of training topic
 	 * 

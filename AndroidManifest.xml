@@ -41,6 +41,9 @@
         <activity
             android:name="net.rdyonline.android_training.stackoverflow.StackOverflowActivity"
             android:label="@string/stack_overflow" />
+        <activity
+            android:name="net.rdyonline.android_training.stackoverflow.StackOverflowActivityTwo"
+            android:label="@string/stack_overflow" />
     </application>
 
 </manifest>
