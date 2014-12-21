@@ -36,4 +36,8 @@
     <string name="vibrant">Vibrant</string>
     <string name="muted">Muted</string>
     
+    <!-- Stack Overflow -->
+    <string name="stack_overflow">StackOverflow</string>
+    <string name="button_stackoverflow">SO Playground</string>
+    
 </resources>

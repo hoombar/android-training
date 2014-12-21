@@ -5,6 +5,7 @@ import net.rdyonline.android_training.alarms.AlarmActivity;
 import net.rdyonline.android_training.asynctasks.ASyncTaskActivity;
 import net.rdyonline.android_training.greendao.GreenDaoActivity;
 import net.rdyonline.android_training.material.palette.PaletteActivity;
+import stackoverflow.StackOverflowActivity;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
@@ -23,6 +24,7 @@ public class MainFragment extends Fragment {
 	private Button mGreenDaoDemo;
 	private Button mAlarmDemo;
 	private Button mPaletteDemo;
+	private Button mStackOverflowPlayground;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,6 +71,9 @@ public class MainFragment extends Fragment {
 				case R.id.button_palette_demo:
 					launchActivity(PaletteActivity.class);
 					break;
+				case R.id.button_stackoverflow_playground:
+					launchActivity(StackOverflowActivity.class);
+					break;
 				}
 			}
 
@@ -78,6 +83,7 @@ public class MainFragment extends Fragment {
 		mGreenDaoDemo.setOnClickListener(listener);
 		mAlarmDemo.setOnClickListener(listener);
 		mPaletteDemo.setOnClickListener(listener);
+		mStackOverflowPlayground.setOnClickListener(listener);
 	}
 	
 	/**
